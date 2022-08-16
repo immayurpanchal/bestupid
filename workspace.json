@@ -1,0 +1,8 @@
+{
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+  "version": 2,
+  "projects": {
+    "music-player": "apps/music-player",
+    "music-player-e2e": "apps/music-player-e2e"
+  }
+}
