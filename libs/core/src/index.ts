@@ -1,3 +1,5 @@
+export * from './lib/typography/typography'
+export * from './lib/card/card'
 export * from './lib/checkbox/checkbox'
 export * from './lib/icons'
 export * from './lib/button/button'
