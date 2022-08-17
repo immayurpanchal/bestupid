@@ -5,7 +5,7 @@ export interface ButtonProps {}
 
 export const Button = () => {
 	return (
-		<div className={styles['container']}>
+		<div className={styles.container}>
 			<h1 className='text-orange-600'>Welcome to Button!</h1>
 		</div>
 	)
