@@ -9,14 +9,10 @@
 		"prepare": "husky install",
 		"format": "prettier --write '**/*.{ts,tsx,js,jsx,json,md,yml,yaml,css,scss,less,graphql,mdx}'"
 	},
-	"husky": {
-		"hooks": {
-			"pre-commit": "lint-staged"
-		}
-	},
 	"lint-staged": {
 		"*.{ts,tsx,json,md}": [
-			"prettier --write"
+			"eslint --fix",
+			"prettier --write --config ./.prettierrc"
 		]
 	},
 	"private": true,
@@ -28,6 +24,8 @@
 		"tslib": "^2.3.0"
 	},
 	"devDependencies": {
+		"@commitlint/cli": "^17.0.3",
+		"@commitlint/config-conventional": "^17.0.3",
 		"@nrwl/cli": "14.5.6",
 		"@nrwl/cypress": "14.5.6",
 		"@nrwl/eslint-plugin-nx": "14.5.6",
