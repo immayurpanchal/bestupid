@@ -22,4 +22,4 @@ export { default as Volume } from './Volume'
 export { default as SliderThumb } from './Slider/Thumb'
 
 // types
-export { IconProps } from './types/types'
+export * from './types/types'
