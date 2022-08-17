@@ -1,3 +1,6 @@
+export * from './lib/Polygon/Polygon'
+export * from './lib/Slider/Slider'
+export * from './lib/MiniPlayer/MiniPlayer'
 export * from './lib/CardList/CardList'
 export * from './lib/Typography/Typography'
 export * from './lib/Card/Card'
