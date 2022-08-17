@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react'
 
-import Button from './Button'
+import MiniPlayer from './MiniPlayer'
 
-describe('Button', () => {
+describe('MiniPlayer', () => {
 	it('should render successfully', () => {
-		const { baseElement } = render(<Button />)
+		const { baseElement } = render(<MiniPlayer />)
 		expect(baseElement).toBeTruthy()
 	})
 })

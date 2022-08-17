@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react'
 
-import Core from './core'
+import Slider from './Slider'
 
-describe('Core', () => {
+describe('Slider', () => {
 	it('should render successfully', () => {
-		const { baseElement } = render(<Core />)
+		const { baseElement } = render(<Slider />)
 		expect(baseElement).toBeTruthy()
 	})
 })

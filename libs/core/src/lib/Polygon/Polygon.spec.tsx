@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react'
 
-import Button from './Button'
+import Polygon from './Polygon'
 
-describe('Button', () => {
+describe('Polygon', () => {
 	it('should render successfully', () => {
-		const { baseElement } = render(<Button />)
+		const { baseElement } = render(<Polygon />)
 		expect(baseElement).toBeTruthy()
 	})
 })
