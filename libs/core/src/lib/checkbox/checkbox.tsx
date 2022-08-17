@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import React, { useRef } from 'react'
-import Tick from '../icons/Tick'
+import Tick from '../Icons/Tick'
 
 type CheckboxProps = {
 	checked?: boolean

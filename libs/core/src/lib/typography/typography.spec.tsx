@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 
-import Typography from './typography'
+import Typography from './Typography'
 
 describe('Typography', () => {
 	it('should render successfully', () => {
