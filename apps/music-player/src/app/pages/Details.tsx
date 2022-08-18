@@ -1,41 +1,21 @@
 import { BackChevron, Button, Disk, More, Playlist, Typography } from '@bestupid/core'
-import { useLocation, useNavigate } from 'react-router-dom'
-import useSWR from 'swr'
+import { useNavigate } from 'react-router-dom'
 
 import { Song } from '../types/song'
 import { getMins, getValueInK } from '../utils/utils'
 
-type Props = {
-	type: 'playlist' | 'album'
-	id: number
+type DetailProps = {
+	songs: Song[]
+	coverImage: string
+	coverTitle: string
+	coverFanCount: number
 }
 
-const fetcher = (url: string) =>
-	fetch(url)
-		.then(r => r.json())
-		.then(r => r.results)
-
-const Details = () => {
-	const location = useLocation()
+const Details = (props: DetailProps) => {
 	const navigate = useNavigate()
-	const { type, id } = location.state as Props
 
-	const { data, error } = useSWR(
-		type === 'playlist' ? `https://saavn.me/playlists?id=${id}` : `https://saavn.me/albums?id=${id}`,
-		fetcher
-	)
-
-	if (error) {
-		return <div>failed to load</div>
-	}
-
-	if (!data) {
-		return <div>Loading...</div>
-	}
-
-	const songs = data.songs as Array<Song>
-
-	const imageUrl = data.image?.[2]?.link
+	const { songs, coverImage, coverTitle, coverFanCount } = props
+	const imageUrl = coverImage
 
 	return (
 		<div>
@@ -64,9 +44,9 @@ const Details = () => {
 			</div>
 			{/* Cover Details */}
 			<div className='flex flex-col'>
-				<Typography type='subtitle'>{data.name}</Typography>
+				<Typography type='subtitle'>{coverTitle}</Typography>
 				<Typography className='gap-y-1  text-sm text-dark-100' type='caption'>
-					{getValueInK(data.fanCount)}
+					{getValueInK(coverFanCount)}
 				</Typography>
 			</div>
 			<div className='flex justify-between'>

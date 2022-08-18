@@ -3,13 +3,8 @@ import useSWR from 'swr'
 
 import { Album as AlbumType } from '../types/album'
 
-const fetcher = (url: string) =>
-	fetch(url)
-		.then(r => r.json())
-		.then(r => r.results)
-
 const EnhancedAlbum = () => {
-	const { data, error } = useSWR('https://saavn.me/home', fetcher)
+	const { data, error } = useSWR('https://saavn.me/home')
 
 	if (error) {
 		return <div>failed to load</div>

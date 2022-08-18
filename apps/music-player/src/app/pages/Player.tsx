@@ -1,6 +1,6 @@
 import {
-	Button,
 	BackChevron,
+	Button,
 	Disk,
 	Heart,
 	More,
@@ -14,28 +14,18 @@ import {
 	Repeat,
 	Volume
 } from '@bestupid/core'
-import { useEffect, useRef, useState } from 'react'
-import { useLocation } from 'react-router-dom'
-import useSWR from 'swr'
-
-import { Song } from '../types/song'
+import { useRef, useState } from 'react'
 
 export type PlayerProps = {
-	singer: string
-	title: string
+	artist: string
+	name: string
 	trackSrc: string
 	image: string
 }
 
-const fetcher = (url: string) =>
-	fetch(url)
-		.then(r => r.json())
-		.then(r => r.results)
+const Player = (props: PlayerProps) => {
+	const { artist, name, trackSrc, image } = props
 
-const Player = () => {
-	const { state } = useLocation()
-	const { id } = state as { id: string }
-	const { data, error } = useSWR(`https://saavn.me/songs?id=${id}`, fetcher)
 	const playerRef = useRef<HTMLAudioElement>(null)
 	const [isPlaying, setIsPlaying] = useState(false)
 
@@ -75,24 +65,6 @@ const Player = () => {
 		}
 	}
 
-	useEffect(() => {
-		if (data) {
-			onPlay()
-		}
-	}, [data])
-
-	if (error) {
-		return <div>failed to load</div>
-	}
-
-	if (!data) {
-		return <div>Loading...</div>
-	}
-
-	const { artist: singer, name: title, downloadUrl, image: imageUrl } = data as Song
-	const trackSrc = downloadUrl?.[4]?.link
-	const image = imageUrl?.[2]?.link
-
 	return (
 		<div className='grid gap-y-16'>
 			<div className='flex items-center justify-between'>
@@ -116,8 +88,8 @@ const Player = () => {
 				</div>
 			</div>
 			<div className='flex flex-col text-center'>
-				<span className='text-xl'>{title}</span>
-				<span className='text-xs'>{singer}</span>
+				<span className='text-xl'>{name}</span>
+				<span className='text-xs'>{artist}</span>
 			</div>
 			<div className='flex items-center justify-center gap-x-4'>
 				<Button shape='circle' onClick={handlePrevious}>

@@ -1,6 +1,6 @@
-import { Album, Artists, IconProps, Playlist, Polygon, Songs } from '@bestupid/core'
+import { Album, Artists, Playlist, Polygon, Songs } from '@bestupid/core'
 import classNames from 'classnames'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 
 const Footer = () => {
@@ -13,11 +13,8 @@ const Footer = () => {
 	}
 
 	// Higher Order Component
-	const getSomething = (
-		Icon: React.FunctionComponent<JSX.IntrinsicElements['svg'] & IconProps>,
-		currentPage: string,
-		extraProps = {}
-	) => {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const getSomething = (Icon: any, currentPage: string, extraProps = {}) => {
 		const activeItemClassNames =
 			'before:absolute before:top-0  before:block before:h-1 before:w-full before:rounded-b-md before:bg-dark-900'
 

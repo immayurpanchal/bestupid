@@ -6,14 +6,9 @@ import { Chart } from '../types/charts'
 import { Playlist } from '../types/playlist'
 import { Trending } from '../types/trending'
 
-const fetcher = (url: string) =>
-	fetch(url)
-		.then(r => r.json())
-		.then(r => r.results)
-
 const Home = () => {
 	const navigate = useNavigate()
-	const { data, error } = useSWR('https://saavn.me/home', fetcher)
+	const { data, error } = useSWR('https://saavn.me/home')
 
 	const handleClick = (item: Playlist | Chart | Trending) => {
 		const { id, type } = item
