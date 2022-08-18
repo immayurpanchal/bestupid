@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react'
 
-import Typography from './Typography'
+import Checkbox from './Checkbox'
 
-describe('Typography', () => {
+describe('Checkbox', () => {
 	it('should render successfully', () => {
-		const { baseElement } = render(<Typography />)
+		const { baseElement } = render(<Checkbox />)
 		expect(baseElement).toBeTruthy()
 	})
 })
