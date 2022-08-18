@@ -1,21 +1,27 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import './App.css'
+import Footer from './components/Footer/Footer'
+import EnhancedAlbum from './containers/EnhancedAlbum'
+import EnhancedPlayer from './containers/EnhancedPlayer'
+import EnhancedSongList from './containers/EnhancedSongList'
 import Details from './pages/Details'
 import Home from './pages/Home'
 import NotFound from './pages/NotFound'
-import Player from './pages/Player'
-import Search from './pages/Search'
-import SongList from './pages/SongList'
+import SearchPage from './pages/Search'
 
-export const App = () => {
+const App = () => {
 	return (
 		<BrowserRouter>
 			<Routes>
-				<Route element={<Home />} path='/' />
-				<Route element={<Search />} path='/search' />
-				<Route element={<SongList />} path='/list' />
-				<Route element={<Player />} path='/player' />
-				<Route element={<Details />} path='/details' />
-				<Route element={<NotFound />} path='/404' />
+				<Route element={<Footer />} path='/'>
+					<Route element={<Home />} path='/home' />
+					<Route element={<EnhancedSongList />} path='/list' />
+					<Route element={<Details />} path='/details' />
+					<Route element={<EnhancedAlbum />} path='/album' />
+					<Route element={<NotFound />} path='/404' />
+				</Route>
+				<Route element={<SearchPage />} path='/search' />
+				<Route element={<EnhancedPlayer />} path='/player' />
 			</Routes>
 		</BrowserRouter>
 	)

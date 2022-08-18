@@ -19,6 +19,7 @@ export { default as Songs } from './Songs'
 export { default as Tick } from './Tick'
 export { default as VoiceSearch } from './VoiceSearch'
 export { default as Volume } from './Volume'
+export { default as Artists } from './Artists'
 export { default as SliderThumb } from './Slider/Thumb'
 
 // types
