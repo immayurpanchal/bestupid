@@ -32,6 +32,8 @@
 				"babel": true
 			},
 			"component": {
+				"pascalCaseFiles": true,
+				"pascalCaseDirectory": true,
 				"style": "css"
 			},
 			"library": {
