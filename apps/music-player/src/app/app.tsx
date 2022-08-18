@@ -4,13 +4,15 @@ import Home from './pages/Home'
 import NotFound from './pages/NotFound'
 import Player from './pages/Player'
 import Search from './pages/Search'
+import SongList from './pages/SongList'
 
 export const App = () => {
 	return (
 		<BrowserRouter>
 			<Routes>
-				<Route element={<Search />} path='/search' />
 				<Route element={<Home />} path='/' />
+				<Route element={<Search />} path='/search' />
+				<Route element={<SongList />} path='/list' />
 				<Route element={<Player />} path='/player' />
 				<Route element={<Details />} path='/details' />
 				<Route element={<NotFound />} path='/404' />
