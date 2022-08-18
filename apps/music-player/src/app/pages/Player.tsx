@@ -76,10 +76,10 @@ const Player = () => {
 	}
 
 	useEffect(() => {
-		if (data && !isPlaying) {
+		if (data) {
 			onPlay()
 		}
-	}, [data, isPlaying])
+	}, [data])
 
 	if (error) {
 		return <div>failed to load</div>
