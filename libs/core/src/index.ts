@@ -1,4 +1,4 @@
-export * from './lib/Album/Album'
+export { default as Album } from './lib/Album/Album'
 export { default as Polygon } from './lib/Polygon/Polygon'
 export { default as Slider } from './lib/Slider/Slider'
 export { default as MiniPlayer } from './lib/MiniPlayer/MiniPlayer'
