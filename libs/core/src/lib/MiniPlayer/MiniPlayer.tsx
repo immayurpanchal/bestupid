@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { useEffect, useRef, useState } from 'react'
 import Button from '../Button/Button'
 import Pause from '../Icons/Pause'
@@ -12,10 +13,11 @@ type MiniPlayerProps = {
 	artist: string
 	trackSrc: string
 	onTrackComplete: () => void
+	isVisible?: boolean
 }
 
 const MiniPlayer = (props: MiniPlayerProps) => {
-	const { image, title, artist, trackSrc, onTrackComplete } = props
+	const { image, title, artist, trackSrc, onTrackComplete, isVisible } = props
 	const playerRef = useRef<HTMLAudioElement>(null)
 	const [progress, setProgress] = useState(0)
 	const [isPlaying, setIsPlaying] = useState(false)
@@ -55,8 +57,12 @@ const MiniPlayer = (props: MiniPlayerProps) => {
 		}
 	}, [progress])
 
+	const miniPlayerClass = classNames('neumorphism flex grow items-center	justify-between	rounded-t-3xl px-5 py-3', {
+		invisible: isVisible
+	})
+
 	return (
-		<div className='neumorphism flex grow items-center	justify-between	rounded-t-3xl px-5 py-3'>
+		<div className={miniPlayerClass}>
 			<audio ref={playerRef} src={trackSrc} onTimeUpdate={onTimeUpdate} />
 			<Polygon className='shrink-0' height='100%' id='mini-player-img' image={image} />
 			<div className='flex flex-col  gap-y-2'>

@@ -3,7 +3,13 @@ import { useAtom } from 'jotai'
 import useSWR from 'swr'
 import { currentSongId } from '../store'
 
-const EnhancedMiniPlayer = () => {
+type Props = {
+	isVisible?: boolean
+}
+
+const EnhancedMiniPlayer = (props: Props) => {
+	const { isVisible = true } = props
+
 	const [id] = useAtom(currentSongId)
 
 	const { data, error } = useSWR(`https://saavn.me/songs?id=${id}`)
@@ -37,6 +43,7 @@ const EnhancedMiniPlayer = () => {
 			key={currentSong.id}
 			artist={currentSong.artist}
 			image={currentSong.image[2].link}
+			isVisible={isVisible}
 			title={currentSong.name}
 			trackSrc={currentSong.downloadUrl[4].link}
 			onTrackComplete={onTrackComplete}

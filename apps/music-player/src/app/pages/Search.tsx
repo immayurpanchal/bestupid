@@ -16,10 +16,6 @@ const SearchPage = () => {
 		return <div>failed to load</div>
 	}
 
-	if (!data && !error) {
-		return <div>loading...</div>
-	}
-
 	return (
 		<div className='flex grid-flow-row flex-col gap-y-7'>
 			<div className='flex items-center justify-between'>
@@ -51,7 +47,7 @@ const SearchPage = () => {
 			</div>
 			<span className='text-lg text-dark-100'>Recently Searched</span>
 			<div className='flex flex-col gap-10'>
-				{data.map((song: Song) => {
+				{data?.map((song: Song) => {
 					const { image, name, id, year } = song
 					return (
 						<div
