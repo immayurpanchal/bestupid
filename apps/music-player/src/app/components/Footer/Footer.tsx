@@ -42,7 +42,7 @@ const Footer = () => {
 
 	return (
 		<>
-			<div className='mb-48'>
+			<div className='mb-48 p-5'>
 				<Outlet />
 			</div>
 			<div className='fixed bottom-0 w-full'>
