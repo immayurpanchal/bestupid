@@ -1,10 +1,32 @@
 import { MiniPlayer } from '@bestupid/core'
 import { useAtom } from 'jotai'
-import { songList } from '../store'
+import useSWR from 'swr'
+import { currentSongId } from '../store'
 
 const EnhancedMiniPlayer = () => {
-	const [songs] = useAtom(songList)
-	const currentSong = songs[0]
+	const [id] = useAtom(currentSongId)
+
+	const { data, error } = useSWR(`https://saavn.me/songs?id=${id}`)
+
+	if (error) {
+		return <div>failed to load</div>
+	}
+
+	if (!data) {
+		return <div>Loading...</div>
+	}
+
+	const currentSong = {
+		id: data.id,
+		artist: data.artist,
+		name: data.name,
+		downloadUrl: data.downloadUrl,
+		image: data.image
+	}
+
+	const onTrackComplete = () => {
+		// setCurrentSong(songs[1])
+	}
 
 	if (!currentSong) {
 		return null
@@ -17,6 +39,7 @@ const EnhancedMiniPlayer = () => {
 			image={currentSong.image[2].link}
 			title={currentSong.name}
 			trackSrc={currentSong.downloadUrl[4].link}
+			onTrackComplete={onTrackComplete}
 		/>
 	)
 }

@@ -37,7 +37,9 @@ const Footer = () => {
 
 	return (
 		<>
-			<Outlet />
+			<div className='mb-48'>
+				<Outlet />
+			</div>
 			<div className='fixed bottom-0 w-full'>
 				<EnhancedMiniPlayer />
 				<div className='grid grid-cols-5  bg-grey-50 p-3 '>

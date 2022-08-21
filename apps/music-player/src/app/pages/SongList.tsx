@@ -1,15 +1,14 @@
 import { Button, More, Polygon } from '@bestupid/core'
-import { useNavigate } from 'react-router-dom'
 
 import { Song } from '../types/song'
 
 type Props = {
 	songs: Song[]
+	onTrackSelect: (song: Song) => void
 }
 
 const SongList = (props: Props) => {
-	const { songs } = props
-	const navigate = useNavigate()
+	const { songs, onTrackSelect } = props
 	return (
 		<>
 			{songs.map((currentSong: Song) => {
@@ -18,13 +17,7 @@ const SongList = (props: Props) => {
 					<div
 						key={id}
 						className='grid grid-cols-[auto_minmax(100px,_1fr)_auto] items-center gap-x-3 rounded-2xl p-3 '
-						onClick={() =>
-							navigate('/player', {
-								state: {
-									id
-								}
-							})
-						}
+						onClick={() => onTrackSelect(currentSong)}
 					>
 						<Polygon id={id} image={image?.[2]?.link || ''} />
 						<div className='flex flex-col'>

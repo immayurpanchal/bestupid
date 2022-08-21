@@ -11,10 +11,11 @@ type MiniPlayerProps = {
 	title: string
 	artist: string
 	trackSrc: string
+	onTrackComplete: () => void
 }
 
 const MiniPlayer = (props: MiniPlayerProps) => {
-	const { image, title, artist, trackSrc } = props
+	const { image, title, artist, trackSrc, onTrackComplete } = props
 	const playerRef = useRef<HTMLAudioElement>(null)
 	const [progress, setProgress] = useState(0)
 	const [isPlaying, setIsPlaying] = useState(false)
@@ -47,6 +48,12 @@ const MiniPlayer = (props: MiniPlayerProps) => {
 			playerRef.current.play()
 		}
 	}, [trackSrc])
+
+	useEffect(() => {
+		if (progress >= 100) {
+			onTrackComplete()
+		}
+	}, [progress])
 
 	return (
 		<div className='neumorphism flex grow items-center	justify-between	rounded-t-3xl px-5 py-3'>
