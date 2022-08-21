@@ -53,8 +53,8 @@ const MiniPlayer = (props: MiniPlayerProps) => {
 			<audio ref={playerRef} src={trackSrc} onTimeUpdate={onTimeUpdate} />
 			<Polygon className='shrink-0' height='100%' id='mini-player-img' image={image} />
 			<div className='flex flex-col  gap-y-2'>
-				<Typography>{title}</Typography>
-				<Typography className='text-dark-100' type='subCaption'>
+				<Typography className='truncate w-56'>{title}</Typography>
+				<Typography className='text-dark-100 truncate w-56' type='subCaption'>
 					{artist}
 				</Typography>
 				<Slider currentProgressClassName='bg-skin-100' percent={progress} />
