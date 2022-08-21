@@ -1,30 +1,17 @@
 import { BackChevron, Button, Keyboard as KeyboardIcon, SearchIcon } from '@bestupid/core'
+import { useAtom } from 'jotai'
 import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useSWR from 'swr'
-
-type Image = {
-	link: string
-}
-
-type DownloadUrl = {
-	quality: string
-	link: string
-}
-
-type Song = {
-	id: string
-	image: Array<Image>
-	name: string
-	year: number
-	downloadUrl: Array<DownloadUrl>
-}
+import { songList } from '../store'
+import { Song } from '../types/song'
 
 const fetcher = (url: string) => fetch(url).then(r => r.json())
 
 const SearchPage = () => {
 	const inputRef = useRef<HTMLInputElement>(null)
 	const navigate = useNavigate()
+	const [, setSongList] = useAtom(songList)
 	const [searchValue, setSearchValue] = useState('')
 	const { data, error } = useSWR(
 		searchValue ? `https://saavn.me/search/songs?query=${searchValue}&page=1&limit=5` : '',
@@ -67,20 +54,14 @@ const SearchPage = () => {
 			<span className='text-lg text-dark-100'>Recently Searched</span>
 			<div className='flex flex-col gap-10'>
 				{data?.results?.map((song: Song) => {
-					const { image, name, id, year, downloadUrl } = song
+					const { image, name, id, year } = song
 					return (
 						<div
 							key={id}
 							className='flex items-center gap-3'
 							onClick={() => {
-								navigate('/player', {
-									state: {
-										image: image[2].link,
-										singer: year,
-										title: name,
-										trackSrc: downloadUrl[4]?.link
-									}
-								})
+								navigate('/list')
+								setSongList(prevSong => [song, ...prevSong])
 							}}
 						>
 							<img

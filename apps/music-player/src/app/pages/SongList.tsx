@@ -13,7 +13,7 @@ const SongList = (props: Props) => {
 	return (
 		<>
 			{songs.map((currentSong: Song) => {
-				const { name, downloadUrl, image, artist, id, year } = currentSong
+				const { name, image, id, year } = currentSong
 				return (
 					<div
 						key={id}
@@ -21,10 +21,7 @@ const SongList = (props: Props) => {
 						onClick={() =>
 							navigate('/player', {
 								state: {
-									title: name,
-									image: image?.[2]?.link,
-									trackSrc: downloadUrl?.[4]?.link,
-									singer: artist
+									id
 								}
 							})
 						}

@@ -31,7 +31,7 @@ const EnhancedDetail = () => {
 		return <div>Loading...</div>
 	}
 
-	const { name, image, songs, fanCount } = data as PlaylistOrAlbumType
+	const { name = '', image, songs = [], fanCount = 0 } = data as PlaylistOrAlbumType
 
 	const imageUrl = image?.[2]?.link
 

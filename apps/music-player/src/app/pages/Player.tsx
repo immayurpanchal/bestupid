@@ -14,7 +14,8 @@ import {
 	Repeat,
 	Volume
 } from '@bestupid/core'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export type PlayerProps = {
 	artist: string
@@ -25,9 +26,10 @@ export type PlayerProps = {
 
 const Player = (props: PlayerProps) => {
 	const { artist, name, trackSrc, image } = props
+	const navigate = useNavigate()
 
 	const playerRef = useRef<HTMLAudioElement>(null)
-	const [isPlaying, setIsPlaying] = useState(false)
+	const [isPlaying, setIsPlaying] = useState(true)
 
 	const onPlay = () => {
 		if (playerRef.current) {
@@ -44,11 +46,11 @@ const Player = (props: PlayerProps) => {
 	}
 
 	const handlePlaylistMenu = () => {
-		console.warn('playlist menu')
+		navigate('/list')
 	}
 
 	const handleMore = () => {
-		console.warn('more')
+		console.warn('playlist menu')
 	}
 
 	const handleNext = () => {
@@ -64,6 +66,12 @@ const Player = (props: PlayerProps) => {
 			playerRef.current.volume = +Number(+e.target.value / 100).toFixed(2)
 		}
 	}
+
+	useEffect(() => {
+		if (playerRef.current) {
+			playerRef.current.play()
+		}
+	}, [])
 
 	return (
 		<div className='grid gap-y-16'>

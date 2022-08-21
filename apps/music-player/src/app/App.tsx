@@ -3,10 +3,10 @@ import Footer from './components/Footer/Footer'
 import EnhancedAlbum from './containers/EnhancedAlbum'
 import EnhancedDetail from './containers/EnhancedDetail'
 import EnhancedPlayer from './containers/EnhancedPlayer'
+import EnhancedSearch from './containers/EnhancedSearch'
 import EnhancedSongList from './containers/EnhancedSongList'
 import Home from './pages/Home'
 import NotFound from './pages/NotFound'
-import SearchPage from './pages/Search'
 
 const App = () => {
 	return (
@@ -20,7 +20,7 @@ const App = () => {
 					<Route element={<EnhancedAlbum />} path='/album' />
 					<Route element={<NotFound />} path='/404' />
 				</Route>
-				<Route element={<SearchPage />} path='/search' />
+				<Route element={<EnhancedSearch />} path='/search' />
 				<Route element={<EnhancedPlayer />} path='/player' />
 			</Routes>
 		</BrowserRouter>

@@ -1,10 +1,11 @@
-import { useLocation } from 'react-router-dom'
+import { useAtom } from 'jotai'
 import useSWR from 'swr'
 import Player from '../pages/Player'
+import { currentSongId } from '../store'
 
 const EnhancedPlayer = () => {
-	const { state } = useLocation()
-	const { id } = state as { id: string }
+	const [id] = useAtom(currentSongId)
+
 	const { data, error } = useSWR(`https://saavn.me/songs?id=${id}`)
 
 	if (error) {

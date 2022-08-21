@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react'
 import Button from '../Button/Button'
 import Pause from '../Icons/Pause'
 import Play from '../Icons/Play'
@@ -9,16 +10,47 @@ type MiniPlayerProps = {
 	image: string
 	title: string
 	artist: string
-	progress: number
-	isPlaying: boolean
-	handleButtonClick: () => void
+	trackSrc: string
 }
 
 const MiniPlayer = (props: MiniPlayerProps) => {
-	const { image, title, artist, progress, isPlaying, handleButtonClick } = props
+	const { image, title, artist, trackSrc } = props
+	const playerRef = useRef<HTMLAudioElement>(null)
+	const [progress, setProgress] = useState(0)
+	const [isPlaying, setIsPlaying] = useState(false)
+
+	const onTimeUpdate = () => {
+		if (playerRef.current) {
+			const { current } = playerRef
+			const { duration } = current
+			const progress = (current.currentTime / duration) * 100
+			setProgress(progress)
+		}
+	}
+
+	const handleButtonClick = () => {
+		if (playerRef.current) {
+			const { current } = playerRef
+			if (current.paused) {
+				setIsPlaying(true)
+				current.play()
+			} else {
+				setIsPlaying(false)
+				current.pause()
+			}
+		}
+	}
+
+	useEffect(() => {
+		if (playerRef.current) {
+			setIsPlaying(true)
+			playerRef.current.play()
+		}
+	}, [trackSrc])
 
 	return (
 		<div className='neumorphism flex grow items-center	justify-between	rounded-t-3xl px-5 py-3'>
+			<audio ref={playerRef} src={trackSrc} onTimeUpdate={onTimeUpdate} />
 			<Polygon className='shrink-0' height='100%' id='mini-player-img' image={image} />
 			<div className='flex flex-col  gap-y-2'>
 				<Typography>{title}</Typography>
@@ -33,7 +65,7 @@ const MiniPlayer = (props: MiniPlayerProps) => {
 				</Button>
 			)}
 			{!isPlaying && (
-				<Button shape='circle' onClick={handleButtonClick}>
+				<Button className='shrink-0' shape='circle' onClick={handleButtonClick}>
 					<Play fillClassName='fill-dark-100' />
 				</Button>
 			)}

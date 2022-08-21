@@ -1,7 +1,8 @@
-import { Album, Artists, Playlist, Polygon, Songs } from '@bestupid/core'
+import { AlbumIcon, Artists, Playlist, Polygon, Songs } from '@bestupid/core'
 import classNames from 'classnames'
 import { useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
+import EnhancedMiniPlayer from '../../containers/EnhancedMiniPlayer'
 
 const Footer = () => {
 	const navigate = useNavigate()
@@ -37,21 +38,23 @@ const Footer = () => {
 	return (
 		<>
 			<Outlet />
-			<div className='fixed bottom-0 grid w-full grid-cols-5  bg-grey-50 p-3 '>
-				{getSomething(
-					() => (
-						<Polygon id='' image='' />
-					),
-					'home',
-					{
-						id: 'footer-avatar',
-						image: 'https://c.saavncdn.com/editorial/logo/JhakaasRemakes_20220105155217.jpg'
-					}
-				)}
-				{getSomething(Songs, 'list')}
-				{getSomething(Album, 'album')}
-				{getSomething(Artists, 'artists')}
-				{getSomething(Playlist, 'playlist')}
+			<div className='fixed bottom-0 w-full'>
+				<EnhancedMiniPlayer />
+				<div className='grid grid-cols-5  bg-grey-50 p-3 '>
+					{getSomething(
+						() => (
+							<Polygon
+								id='footer-avatar'
+								image='https://c.saavncdn.com/editorial/logo/JhakaasRemakes_20220105155217.jpg'
+							/>
+						),
+						'home'
+					)}
+					{getSomething(Songs, 'list')}
+					{getSomething(AlbumIcon, 'album')}
+					{getSomething(Artists, 'artists')}
+					{getSomething(Playlist, 'playlist')}
+				</div>
 			</div>
 		</>
 	)

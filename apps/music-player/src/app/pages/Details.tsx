@@ -1,5 +1,7 @@
 import { BackChevron, Button, Disk, More, Playlist, Typography } from '@bestupid/core'
+import { useAtom } from 'jotai'
 import { useNavigate } from 'react-router-dom'
+import { currentSongId, songList } from '../store'
 
 import { Song } from '../types/song'
 import { getMins, getValueInK } from '../utils/utils'
@@ -13,6 +15,8 @@ type DetailProps = {
 
 const Details = (props: DetailProps) => {
 	const navigate = useNavigate()
+	const [, setCurrentSongId] = useAtom(currentSongId)
+	const [, setCurrentSongList] = useAtom(songList)
 
 	const { songs, coverImage, coverTitle, coverFanCount } = props
 	const imageUrl = coverImage
@@ -51,7 +55,7 @@ const Details = (props: DetailProps) => {
 			</div>
 			<div className='flex justify-between'>
 				<Button shape='square'>Shuffle</Button>
-				<Button shape='square' variant='primary'>
+				<Button shape='square' variant='primary' onClick={() => setCurrentSongList(songs)}>
 					Play All
 				</Button>
 			</div>
@@ -63,7 +67,11 @@ const Details = (props: DetailProps) => {
 						<div
 							key={index}
 							className='grid grid-cols-[auto_minmax(187px,_1fr)_auto] gap-x-4'
-							onClick={() => navigate('/player', { state: { id: song.id } })}
+							onClick={() => {
+								setCurrentSongList(prevSongs => [song, ...prevSongs])
+								setCurrentSongId(song.id)
+								navigate('/player')
+							}}
 						>
 							<Typography>{(index + 1).toString().padStart(2, '0')}</Typography>
 							<div className='flex flex-col'>
