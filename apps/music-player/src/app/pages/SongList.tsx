@@ -26,7 +26,10 @@ const SongList = (props: Props) => {
 							<span className='text-dark-100'>{year}</span>
 						</div>
 						<Button className='h-6 w-6'>
-							<More fillClassName='fill-dark-100' />
+							{/* TODO: Add actual download support */}
+							<a download={currentSong.name} href={currentSong.downloadUrl[4].link} rel='noreferrer' target='_blank'>
+								<More fillClassName='fill-dark-100' />
+							</a>
 						</Button>
 					</div>
 				)
