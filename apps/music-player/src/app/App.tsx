@@ -19,9 +19,9 @@ const App = () => {
 					<Route element={<EnhancedDetail />} path='/details' />
 					<Route element={<EnhancedAlbum />} path='/album' />
 					<Route element={<NotFound />} path='/404' />
+					<Route element={<EnhancedSearch />} path='/search' />
+					<Route element={<EnhancedPlayer />} path='/player' />
 				</Route>
-				<Route element={<EnhancedSearch />} path='/search' />
-				<Route element={<EnhancedPlayer />} path='/player' />
 			</Routes>
 		</BrowserRouter>
 	)
