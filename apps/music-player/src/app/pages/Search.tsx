@@ -1,25 +1,23 @@
 import { BackChevron, Button, Keyboard as KeyboardIcon, SearchIcon } from '@bestupid/core'
 import { useAtom } from 'jotai'
 import { useRef, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import useSWR from 'swr'
-import { songList } from '../store'
+import { currentSongId } from '../store'
 import { Song } from '../types/song'
-
-const fetcher = (url: string) => fetch(url).then(r => r.json())
 
 const SearchPage = () => {
 	const inputRef = useRef<HTMLInputElement>(null)
-	const navigate = useNavigate()
-	const [, setSongList] = useAtom(songList)
+
+	const [, setCurrentSongId] = useAtom(currentSongId)
 	const [searchValue, setSearchValue] = useState('')
-	const { data, error } = useSWR(
-		searchValue ? `https://saavn.me/search/songs?query=${searchValue}&page=1&limit=5` : '',
-		fetcher
-	)
+	const { data, error } = useSWR(searchValue ? `https://saavn.me/search/songs?query=${searchValue}&page=1&limit=5` : '')
 
 	if (error) {
 		return <div>failed to load</div>
+	}
+
+	if (!data && !error) {
+		return <div>loading...</div>
 	}
 
 	return (
@@ -53,15 +51,14 @@ const SearchPage = () => {
 			</div>
 			<span className='text-lg text-dark-100'>Recently Searched</span>
 			<div className='flex flex-col gap-10'>
-				{data?.results?.map((song: Song) => {
+				{data.map((song: Song) => {
 					const { image, name, id, year } = song
 					return (
 						<div
 							key={id}
 							className='flex items-center gap-3'
 							onClick={() => {
-								navigate('/list')
-								setSongList(prevSong => [song, ...prevSong])
+								setCurrentSongId(song.id)
 							}}
 						>
 							<img
