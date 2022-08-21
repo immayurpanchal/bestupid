@@ -1,6 +1,5 @@
 import { BackChevron, Button, Disk, More, Playlist, Typography } from '@bestupid/core'
 import { useAtom } from 'jotai'
-import { useNavigate } from 'react-router-dom'
 import { currentSongId, songList } from '../store'
 
 import { Song } from '../types/song'
@@ -14,7 +13,6 @@ type DetailProps = {
 }
 
 const Details = (props: DetailProps) => {
-	const navigate = useNavigate()
 	const [, setCurrentSongId] = useAtom(currentSongId)
 	const [, setCurrentSongList] = useAtom(songList)
 
@@ -75,7 +73,6 @@ const Details = (props: DetailProps) => {
 							onClick={() => {
 								setCurrentSongList(prevSongs => [song, ...prevSongs])
 								setCurrentSongId(song.id)
-								navigate('/player')
 							}}
 						>
 							<Typography>{(index + 1).toString().padStart(2, '0')}</Typography>
