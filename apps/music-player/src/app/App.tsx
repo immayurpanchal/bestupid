@@ -13,7 +13,7 @@ const App = () => {
 		<BrowserRouter>
 			<Routes>
 				<Route element={<Footer />} path='/'>
-					<Route element={<Home />} path='/home' />
+					<Route element={<Home />} path='/' />
 					<Route element={<EnhancedSongList />} path='/list' />
 					{/* Album / Playlist Details page with Disk Cover */}
 					<Route element={<EnhancedDetail />} path='/details' />
