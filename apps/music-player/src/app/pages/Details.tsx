@@ -21,6 +21,11 @@ const Details = (props: DetailProps) => {
 	const { songs, coverImage, coverTitle, coverFanCount } = props
 	const imageUrl = coverImage
 
+	const handlePlayAll = () => {
+		setCurrentSongList(songs)
+		setCurrentSongId(songs[0].id)
+	}
+
 	return (
 		<div>
 			{/* Header */}
@@ -55,7 +60,7 @@ const Details = (props: DetailProps) => {
 			</div>
 			<div className='flex justify-between'>
 				<Button shape='square'>Shuffle</Button>
-				<Button shape='square' variant='primary' onClick={() => setCurrentSongList(songs)}>
+				<Button shape='square' variant='primary' onClick={handlePlayAll}>
 					Play All
 				</Button>
 			</div>
