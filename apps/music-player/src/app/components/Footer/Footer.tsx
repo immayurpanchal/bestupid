@@ -54,7 +54,7 @@ const Footer = () => {
 					)}
 					{getSomething(Songs, 'list')}
 					{getSomething(AlbumIcon, 'album')}
-					{getSomething(Artists, 'artists')}
+					{getSomething(Artists, '')}
 					{getSomething(Playlist, 'playlist')}
 				</div>
 			</div>
