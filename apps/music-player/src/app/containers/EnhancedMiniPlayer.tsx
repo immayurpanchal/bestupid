@@ -12,14 +12,14 @@ const EnhancedMiniPlayer = (props: Props) => {
 
 	const [id] = useAtom(currentSongId)
 
-	const { data, error } = useSWR(`https://saavn.me/songs?id=${id}`)
+	const { data, error } = useSWR(() => (id ? `https://saavn.me/songs?id=${id}` : null))
 
 	if (error) {
 		return <div>failed to load</div>
 	}
 
-	if (!data) {
-		return <div>Loading...</div>
+	if (!id || !data) {
+		return null
 	}
 
 	const currentSong = {
@@ -32,10 +32,6 @@ const EnhancedMiniPlayer = (props: Props) => {
 
 	const onTrackComplete = () => {
 		// setCurrentSong(songs[1])
-	}
-
-	if (!currentSong) {
-		return null
 	}
 
 	return (
