@@ -1,5 +1,6 @@
 import { MiniPlayer } from '@bestupid/core'
 import { useAtom } from 'jotai'
+import React from 'react'
 import useSWR from 'swr'
 import { currentSongId } from '../store'
 
@@ -7,7 +8,7 @@ type Props = {
 	isVisible?: boolean
 }
 
-const EnhancedMiniPlayer = (props: Props) => {
+const EnhancedMiniPlayer = React.forwardRef((props: Props, playerRef: React.ForwardedRef<HTMLAudioElement>) => {
 	const { isVisible = true } = props
 
 	const [id] = useAtom(currentSongId)
@@ -37,6 +38,7 @@ const EnhancedMiniPlayer = (props: Props) => {
 	return (
 		<MiniPlayer
 			key={currentSong.id}
+			ref={playerRef}
 			artist={currentSong.artist}
 			image={currentSong.image[2].link}
 			isVisible={isVisible}
@@ -45,6 +47,6 @@ const EnhancedMiniPlayer = (props: Props) => {
 			onTrackComplete={onTrackComplete}
 		/>
 	)
-}
+})
 
 export default EnhancedMiniPlayer

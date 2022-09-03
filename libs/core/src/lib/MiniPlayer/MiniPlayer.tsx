@@ -1,5 +1,8 @@
+// @ts-nocheck
+
 import classNames from 'classnames'
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Button from '../Button/Button'
 import Pause from '../Icons/Pause'
 import Play from '../Icons/Play'
@@ -14,13 +17,15 @@ type MiniPlayerProps = {
 	trackSrc: string
 	onTrackComplete: () => void
 	isVisible?: boolean
+	playerRef?: React.RefObject<HTMLAudioElement>
+	isPlaying?: boolean
 }
 
-const MiniPlayer = (props: MiniPlayerProps) => {
-	const { image, title, artist, trackSrc, onTrackComplete, isVisible } = props
-	const playerRef = useRef<HTMLAudioElement>(null)
+const MiniPlayer = React.forwardRef((props: MiniPlayerProps, playerRef: React.ForwardedRef<HTMLAudioElement>) => {
+	const { image, title, artist, trackSrc, onTrackComplete, isVisible, isPlaying } = props
 	const [progress, setProgress] = useState(0)
-	const [isPlaying, setIsPlaying] = useState(false)
+
+	const navigate = useNavigate()
 
 	const onTimeUpdate = () => {
 		if (playerRef.current) {
@@ -31,22 +36,24 @@ const MiniPlayer = (props: MiniPlayerProps) => {
 		}
 	}
 
-	const handleButtonClick = () => {
-		if (playerRef.current) {
+	const handleButtonClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+		e.stopPropagation()
+		if (playerRef?.current) {
 			const { current } = playerRef
 			if (current.paused) {
-				setIsPlaying(true)
 				current.play()
 			} else {
-				setIsPlaying(false)
 				current.pause()
 			}
 		}
 	}
 
+	const onMiniPlayerWrapperClick = () => {
+		navigate('/player')
+	}
+
 	useEffect(() => {
 		if (playerRef.current) {
-			setIsPlaying(true)
 			playerRef.current.play()
 		}
 	}, [trackSrc])
@@ -62,7 +69,7 @@ const MiniPlayer = (props: MiniPlayerProps) => {
 	})
 
 	return (
-		<div className={miniPlayerClass}>
+		<div className={miniPlayerClass} onClick={onMiniPlayerWrapperClick}>
 			<audio ref={playerRef} src={trackSrc} onTimeUpdate={onTimeUpdate} />
 			<Polygon className='shrink-0' height='100%' id='mini-player-img' image={image} />
 			<div className='flex flex-col  gap-y-2'>
@@ -84,5 +91,5 @@ const MiniPlayer = (props: MiniPlayerProps) => {
 			)}
 		</div>
 	)
-}
+})
 export default MiniPlayer

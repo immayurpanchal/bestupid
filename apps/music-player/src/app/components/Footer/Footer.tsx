@@ -1,6 +1,8 @@
+// @ts-nocheck
+
 import { AlbumIcon, Artists, Playlist, Polygon, Songs } from '@bestupid/core'
 import classNames from 'classnames'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import EnhancedMiniPlayer from '../../containers/EnhancedMiniPlayer'
 
@@ -8,6 +10,7 @@ const Footer = () => {
 	const navigate = useNavigate()
 	const location = useLocation()
 	const [selectedPage, setSelectedPage] = useState('')
+	const playerRef = useRef<HTMLAudioElement>(null)
 
 	const handleClick = (page: string) => {
 		navigate(`/${page}`)
@@ -43,10 +46,10 @@ const Footer = () => {
 	return (
 		<>
 			<div className='mb-48 p-5'>
-				<Outlet />
+				<Outlet context={playerRef} />
 			</div>
 			<div className='fixed bottom-0 w-full'>
-				<EnhancedMiniPlayer isVisible={getIsMiniPlayerVisible()} />
+				<EnhancedMiniPlayer ref={playerRef} isVisible={getIsMiniPlayerVisible()} />
 				<div className='grid grid-cols-5  bg-grey-50 p-3 '>
 					{getSomething(
 						() => (

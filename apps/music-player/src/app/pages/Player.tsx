@@ -14,36 +14,23 @@ import {
 	Repeat,
 	Volume
 } from '@bestupid/core'
-import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 export type PlayerProps = {
 	artist: string
 	name: string
-	trackSrc: string
 	image: string
+	onPlay: () => void
+	onPause: () => void
+	handleVolumeChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+	handleNext: () => void
+	handlePrevious: () => void
+	isPlaying: boolean
 }
 
 const Player = (props: PlayerProps) => {
-	const { artist, name, trackSrc, image } = props
+	const { artist, name, image, onPlay, isPlaying, onPause, handleNext, handlePrevious, handleVolumeChange } = props
 	const navigate = useNavigate()
-
-	const playerRef = useRef<HTMLAudioElement>(null)
-	const [isPlaying, setIsPlaying] = useState(true)
-
-	const onPlay = () => {
-		if (playerRef.current) {
-			playerRef.current.play()
-			setIsPlaying(true)
-		}
-	}
-
-	const onPause = () => {
-		if (playerRef.current) {
-			playerRef.current.pause()
-			setIsPlaying(false)
-		}
-	}
 
 	const handlePlaylistMenu = () => {
 		navigate('/list')
@@ -52,26 +39,6 @@ const Player = (props: PlayerProps) => {
 	const handleMore = () => {
 		console.warn('playlist menu')
 	}
-
-	const handleNext = () => {
-		console.warn('next')
-	}
-
-	const handlePrevious = () => {
-		console.warn('previous')
-	}
-
-	const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		if (playerRef.current) {
-			playerRef.current.volume = +Number(+e.target.value / 100).toFixed(2)
-		}
-	}
-
-	useEffect(() => {
-		if (playerRef.current) {
-			playerRef.current.play()
-		}
-	}, [])
 
 	return (
 		<div className='grid gap-y-16'>
@@ -92,7 +59,6 @@ const Player = (props: PlayerProps) => {
 			<div className='justify-self-center'>
 				<div className='relative'>
 					<Disk image={image || ''} />
-					<audio ref={playerRef} src={trackSrc} />
 				</div>
 			</div>
 			<div className='flex flex-col text-center'>
